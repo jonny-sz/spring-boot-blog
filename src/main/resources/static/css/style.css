@@ -1,0 +1,61 @@
+/*index*/
+
+.navbar-custom {
+    background-color: #54595f;
+    margin-bottom: 2em;
+}
+
+/*.navbar-custom .navbar-brand {*/
+
+/*}*/
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-brand:visited,
+.navbar-custom .navbar-nav .nav-link,
+.navbar-custom .nav-item .nav-link:focus-within {
+    color: #eeff22;
+}
+
+.navbar-custom .nav-item:hover .nav-link {
+    color: #080305;
+    background-color: #eed140;
+}
+
+.navbar-custom .navbar-brand:hover {
+    color: #ff7a03;
+}
+
+.date, .author {
+    font-size: small;
+}
+
+.my-title {
+    color: indigo;
+}
+
+.post-link {
+    text-decoration: none !important;
+    display: block;
+    color: black;
+}
+
+.usr {
+    color: #5f2119;
+}
+
+.top {
+    background-color: #eaeaea;
+    padding-top: .3em;
+    padding-bottom: .3em;
+}
+
+/*post*/
+
+.post-bg-color {
+    background-color: #f9f8f8;
+    font-size: medium;
+}
+
+.post-indent {
+    text-indent: 2em;
+}
