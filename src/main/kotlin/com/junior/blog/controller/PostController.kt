@@ -59,8 +59,7 @@ class PostController(
     
     @PostMapping("edit-form")
     fun editForm(@RequestParam postId: Long, model: Model): String {
-        val post = postService.getById(postId)
-        model.addAttribute("post", post)
+        model.addAttribute("post", postService.getById(postId))
         
         return "edit-post"
     }
@@ -72,7 +71,7 @@ class PostController(
         postService.compareAndMerge(postFromDB, updatedPost)
         postService.save(postFromDB)
         
-        return "redirect:/post/all-my"
+        return "redirect:/post/${postFromDB.id}"
     }
     
     
