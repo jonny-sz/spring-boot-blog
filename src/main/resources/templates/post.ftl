@@ -1,11 +1,16 @@
 <#-- @ftlvariable name="post" type="com.junior.blog.model.Post" -->
 <#include "fragment/security.ftl">
 
-<#import "fragment/main.ftl" as main>
-<#import "fragment/header.ftl" as header>
+<#import "fragment/common.ftl" as common>
+<#import "fragment/head.ftl" as head>
+<#import "fragment/navbar.ftl" as nav>
 
-<@main.main title="${post.title}" css="style">
-    <@header.nav true/>
+<@common.base>
+    <@head.base title="${post.title}"></@head.base>
+
+    <body>
+        <@nav.nav true/>
+
         <div class="container post-bg-color p-4">
             <div class="text-center"><h2 class="my-title">${post.title}</h2></div>
             <div class="text-center"><h4>${post.description}</h4></div>
@@ -44,6 +49,7 @@
                 </div>
             </#if>
         </div>
-</@main.main>
 
-
+        <#include "fragment/bootstrap-js.ftl">
+    </body>
+</@common.base>

@@ -59,3 +59,9 @@
 .post-indent {
     text-indent: 2em;
 }
+
+/*froala*/
+
+.fr-quick-insert {
+    display: none;
+}

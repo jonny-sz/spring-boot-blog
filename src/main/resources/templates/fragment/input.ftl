@@ -26,7 +26,7 @@
 
 <#macro input label type id name feedback>
     <div class="form-group">
-        <label for="validationCustom${id}">${label}</label>
+        <div class="text-center"><label for="validationCustom${id}">${label}</label></div>
         <input type="${type}"
                class="form-control"
                id="validationCustom${id}"
@@ -39,9 +39,9 @@
 
 <#macro text_area label id name feedback>
     <div class="form-group">
-        <label for="exampleFormControlTextarea${id}">${label}</label>
+        <div class="text-center"><label for="${id}">${label}</label></div>
         <textarea class="form-control"
-                  id="exampleFormControlTextarea${id}"
+                  id="${id}"
                   rows="6"
                   required
                   name="${name}"
