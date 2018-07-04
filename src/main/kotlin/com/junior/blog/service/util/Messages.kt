@@ -1,4 +1,4 @@
-package com.junior.blog.service
+package com.junior.blog.service.util
 
 val activationMsg = """
             Hello, %s!

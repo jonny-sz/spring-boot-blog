@@ -1,4 +1,4 @@
-package com.junior.blog.repository
+package com.junior.blog.repository.util
 
 const val selectEmptyCategories = """
 select * from "category"

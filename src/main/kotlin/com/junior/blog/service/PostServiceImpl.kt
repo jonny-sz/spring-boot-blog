@@ -25,13 +25,13 @@ class PostServiceImpl(private val postRepo: PostRepository) : PostService {
     }
     
     override fun compareAndMerge(postFromDB: Post, updatedPost: Post) {
-        if ( updatedPost.title.isNotEmpty() )
+        if ( !updatedPost.title.isNullOrEmpty() )
             postFromDB.title = updatedPost.title
         
-        if ( updatedPost.description.isNotEmpty() )
+        if ( !updatedPost.description.isNullOrEmpty() )
             postFromDB.description = updatedPost.description
         
-        if ( updatedPost.text.isNotEmpty() )
+        if ( !updatedPost.text.isNullOrEmpty() )
             postFromDB.text = updatedPost.text
     }
 }

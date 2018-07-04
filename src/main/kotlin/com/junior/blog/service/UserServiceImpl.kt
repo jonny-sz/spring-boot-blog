@@ -3,6 +3,10 @@ package com.junior.blog.service
 import com.junior.blog.model.Role
 import com.junior.blog.model.User
 import com.junior.blog.repository.UserRepository
+import com.junior.blog.service.util.activationMsg
+import com.junior.blog.service.util.userAlreadyExists
+import com.junior.blog.service.util.userNotFound
+
 import org.springframework.data.domain.Sort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
@@ -12,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.ui.Model
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+
 import java.util.*
 
 @Service
