@@ -27,14 +27,14 @@
 
 <#macro select_category>
     <div class="form-group">
-        <select class="custom-select ${(categoryError??)?string('is-invalid', '')}" name="category" <#--required-->>
+        <select class="custom-select ${(postCategoryError??)?string('is-invalid', '')}" name="category" <#--required-->>
             <option value="">Категория</option>
                     <#list categories as category>
                         <option value="${category.id}">${category.title}</option>
                     </#list>
         </select>
-        <#if categoryError??>
-            <div class="invalid-feedback text-center">${categoryError}</div>
+        <#if postCategoryError??>
+            <div class="invalid-feedback text-center">${postCategoryError}</div>
         </#if>
     </div>
 </#macro>
@@ -43,13 +43,13 @@
     <div class="form-group">
         <div class="text-center"><label for="validationCustom01">Заголовок</label></div>
         <input type="text"
-               class="form-control ${(titleError??)?string('is-invalid', '')}"
+               class="form-control ${(postTitleError??)?string('is-invalid', '')}"
                id="validationCustom01"
                name="title"
                placeholder="Заголовок"
                value="<#if post??>${post.title}</#if>"/>
-        <#if titleError??>
-            <div class="invalid-feedback text-center">${titleError}</div>
+        <#if postTitleError??>
+            <div class="invalid-feedback text-center">${postTitleError}</div>
         </#if>
     </div>
 </#macro>
@@ -58,13 +58,13 @@
     <div class="form-group">
         <div class="text-center"><label for="validationCustom02">Описание</label></div>
         <input type="text"
-               class="form-control ${(descriptionError??)?string('is-invalid', '')}"
+               class="form-control ${(postDescriptionError??)?string('is-invalid', '')}"
                id="validationCustom02"
                name="description"
                placeholder="Описание"
                value="<#if post??>${post.description}</#if>"/>
-        <#if descriptionError??>
-            <div class="invalid-feedback text-center">${descriptionError}</div>
+        <#if postDescriptionError??>
+            <div class="invalid-feedback text-center">${postDescriptionError}</div>
         </#if>
     </div>
 </#macro>
@@ -72,13 +72,13 @@
 <#macro text_area>
     <div class="form-group">
         <div class="text-center"><label for="editor">Статья</label></div>
-        <textarea class="form-control ${(textError??)?string('is-invalid', '')}"
+        <textarea class="form-control ${(postTextError??)?string('is-invalid', '')}"
                   id="editor"
                   name="text">
             <#if post??>${post.text}</#if>
         </textarea>
-        <#if textError??>
-            <div class="invalid-feedback text-center">${textError}</div>
+        <#if postTextError??>
+            <div class="invalid-feedback text-center">${postTextError}</div>
         </#if>
     </div>
 </#macro>

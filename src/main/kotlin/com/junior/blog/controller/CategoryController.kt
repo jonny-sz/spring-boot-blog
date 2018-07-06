@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*
 class CategoryController(private val categoryService: CategoryServiceImpl) {
 
     @PostMapping
-    fun createCategory(@RequestParam title: String) : String {
-        categoryService.save(Category(title = title))
+    fun createCategory(category: Category) : String {
+        categoryService.save(category)
 
         return "redirect:/post/new/form"
     }

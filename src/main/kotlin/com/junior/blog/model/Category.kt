@@ -2,6 +2,8 @@ package com.junior.blog.model
 
 import java.util.*
 import javax.persistence.*
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "category")
@@ -12,7 +14,9 @@ class Category(
         val id: Long? = null,
         
         @Column(name = "category_title")
-        var title: String = "",
+        @field:NotBlank(message = "Категория не может быть пустой")
+        @field:Size(max = 25, message = "название слишком длинное, макс 25")
+        var title: String? = null,
         
         @Column(name = "category_created")
         val created: Date = Date(),
