@@ -55,9 +55,7 @@ class PostController(
     @GetMapping("all-my")
     @PreAuthorize("hasAuthority('USER')")
     fun getUserPosts(@AuthenticationPrincipal authUser: User, model: Model): String {
-        val userFromDB = userService.getByName(authUser.username)
-        val sortedPosts = userFromDB!!.posts.sortedByDescending { it.created }
-        model.addAttribute("posts", sortedPosts)
+        model.addAttribute("posts", postService.getByUser(authUser.id!!))
         
         return "my-posts"
     }
