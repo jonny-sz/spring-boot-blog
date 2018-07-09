@@ -14,8 +14,8 @@ class Category(
         val id: Long? = null,
         
         @Column(name = "category_title")
-        @field:NotBlank(message = "Категория не может быть пустой")
-        @field:Size(max = 25, message = "название слишком длинное, макс 25")
+        @field:NotBlank(message = "{NotBlank.category.title}")
+        @field:Size(max = 25, message = "{Size.category.title}")
         var title: String? = null,
         
         @Column(name = "category_created")

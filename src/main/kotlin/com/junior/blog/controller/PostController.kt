@@ -5,7 +5,6 @@ import com.junior.blog.model.Post
 import com.junior.blog.model.User
 import com.junior.blog.service.CategoryServiceImpl
 import com.junior.blog.service.PostServiceImpl
-import com.junior.blog.service.UserServiceImpl
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
@@ -19,7 +18,6 @@ import javax.validation.Valid
 @RequestMapping("/post")
 class PostController(
         private val postService: PostServiceImpl,
-        private val userService: UserServiceImpl,
         private val categoryService: CategoryServiceImpl
 ) {
     @GetMapping("new/form")
