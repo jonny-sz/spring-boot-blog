@@ -1,16 +1,18 @@
 package com.junior.blog.controller
 
-import com.junior.blog.controller.util.getErrors
+import com.junior.blog.controller.util.isErrors
 import com.junior.blog.model.Post
 import com.junior.blog.model.User
 import com.junior.blog.service.CategoryServiceImpl
 import com.junior.blog.service.PostServiceImpl
+
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
+
 import javax.validation.Valid
 
 @Controller
@@ -29,13 +31,8 @@ class PostController(
                    bindRes: BindingResult,
                    model: Model
     ): String {
-        if (bindRes.hasErrors()) {
-            model.mergeAttributes(getErrors(bindRes))
-            model.addAttribute("post", post)
-            
-            return "add-post"
-        }
-        
+        if (isErrors(bindRes, model, post)) return "add-post"
+    
         post.user = user
         postService.save(post)
         categoryService.deleteAll(categoryService.getAllEmpty())

@@ -7,19 +7,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 
-
-
 @Configuration
 class MvcConfig : WebMvcConfigurer {
     
     @Bean
     fun messageSource(): ReloadableResourceBundleMessageSource {
         val messageSource = ReloadableResourceBundleMessageSource()
-        messageSource.setBasename("classpath:messages")
+        messageSource.setBasename("classpath:ValidationMessages")
+        messageSource.setCacheSeconds(3600)
         messageSource.setDefaultEncoding("UTF-8")
         return messageSource
     }
-    
+
     @Bean
     fun validator(): LocalValidatorFactoryBean {
         val bean = LocalValidatorFactoryBean()

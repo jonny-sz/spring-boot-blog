@@ -1,27 +1,27 @@
 CREATE TABLE "category" (
-  "category_id"      BIGSERIAL PRIMARY KEY,
-  "category_title"   VARCHAR(255),
-  "category_created" TIMESTAMP(0) NOT NULL DEFAULT now(),
-  "category_updated" TIMESTAMP(0) NOT NULL DEFAULT now()
+  "id"      BIGSERIAL PRIMARY KEY,
+  "title"   VARCHAR(255),
+  "created" TIMESTAMP(0) NOT NULL DEFAULT now(),
+  "updated" TIMESTAMP(0) NOT NULL DEFAULT now()
 );
 
 CREATE TABLE "post" (
-  "post_id"          BIGSERIAL PRIMARY KEY,
-  "post_title"       VARCHAR(255),
-  "post_description" VARCHAR(255),
-  "post_text"        TEXT,
-  "post_created"     TIMESTAMP(0) NOT NULL DEFAULT now(),
-  "post_updated"     TIMESTAMP(0) NOT NULL DEFAULT now()
+  "id"          BIGSERIAL PRIMARY KEY,
+  "title"       VARCHAR(255),
+  "description" VARCHAR(255),
+  "text"        TEXT,
+  "created"     TIMESTAMP(0) NOT NULL DEFAULT now(),
+  "updated"     TIMESTAMP(0) NOT NULL DEFAULT now()
 );
 
 CREATE TABLE "usr" (
-  "usr_id"              BIGSERIAL PRIMARY KEY,
-  "usr_name"            VARCHAR(255) NOT NULL,
-  "usr_password"        VARCHAR(255) NOT NULL,
-  "usr_email"           VARCHAR(255),
-  "usr_activation_code" VARCHAR (255),
-  "usr_created"         TIMESTAMP(0) NOT NULL DEFAULT now(),
-  "usr_updated"         TIMESTAMP(0) NOT NULL DEFAULT now()
+  "id"              BIGSERIAL PRIMARY KEY,
+  "name"            VARCHAR(255) NOT NULL,
+  "password"        VARCHAR(255) NOT NULL,
+  "email"           VARCHAR(255),
+  "activation_code" VARCHAR (255),
+  "created"         TIMESTAMP(0) NOT NULL DEFAULT now(),
+  "updated"         TIMESTAMP(0) NOT NULL DEFAULT now()
 );
 
 CREATE TABLE "user_role" (

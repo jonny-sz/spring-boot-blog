@@ -4,9 +4,9 @@
 <#macro nav allItems>
 
 <header class="sticky-top">
-    <#if  user??>
+    <#if  authUser??>
         <div class="container-fluid text-center top">
-            Добро пожаловать, <span class="usr font-weight-bold">${username}</span>!
+            Добро пожаловать, <span class="usr font-weight-bold">${loginName}</span>!
         </div>
     </#if>
 
@@ -39,7 +39,7 @@
                                 </#list>
                             </div>
                         </li>
-                        <#if user??>
+                        <#if authUser??>
                             <li class="nav-item">
                                 <a class="nav-link" href="/post/new/form">Добавить статью</a>
                             </li>
