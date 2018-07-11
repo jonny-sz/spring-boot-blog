@@ -5,15 +5,12 @@ import com.junior.blog.model.Post
 import com.junior.blog.model.User
 import com.junior.blog.service.CategoryServiceImpl
 import com.junior.blog.service.PostServiceImpl
-
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.validation.Validator
 import org.springframework.web.bind.annotation.*
-
 import javax.validation.Valid
 
 @Controller
