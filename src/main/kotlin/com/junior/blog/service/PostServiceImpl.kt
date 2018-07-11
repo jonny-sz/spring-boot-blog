@@ -24,14 +24,14 @@ class PostServiceImpl(private val postRepo: PostRepository) : PostService {
         postRepo.delete(post)
     }
     
-    override fun compareAndMerge(postFromDB: Post, updatedPost: Post) {
-        if ( !updatedPost.title.isNullOrEmpty() )
-            postFromDB.title = updatedPost.title
+    override fun editPost(id: Long, post: Post): Post {
+        val postFromDB = getById(id)
         
-        if ( !updatedPost.description.isNullOrEmpty() )
-            postFromDB.description = updatedPost.description
+        postFromDB.title = post.title
+        postFromDB.description = post.description
+        postFromDB.text = post.text
+        postFromDB.category = post.category
         
-        if ( !updatedPost.text.isNullOrEmpty() )
-            postFromDB.text = updatedPost.text
+        return postFromDB
     }
 }

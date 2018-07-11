@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
+import org.springframework.validation.Validator
 import org.springframework.web.bind.annotation.*
 
 import javax.validation.Valid
@@ -27,17 +28,24 @@ class PostController(
     
     @PostMapping("new/add")
     fun createPost(@AuthenticationPrincipal user: User,
+                   @RequestParam(required = false) id: Long?,
                    @Valid post: Post,
                    bindRes: BindingResult,
                    model: Model
     ): String {
         if (isErrors(bindRes, model, post)) return "add-post"
-    
-        post.user = user
-        postService.save(post)
+        
+        when (id) {
+            null -> {
+                post.user = user
+                postService.save(post)
+            }
+            else -> postService.save(postService.editPost(id, post))
+        }
+        
         categoryService.deleteAll(categoryService.getAllEmpty())
         
-        return "redirect:/"
+        return "redirect:/post/${post.id}"
     }
     
     @GetMapping("{post}")
@@ -67,19 +75,8 @@ class PostController(
     fun editForm(@RequestParam postId: Long, model: Model): String {
         model.addAttribute("post", postService.getById(postId))
         
-        return "edit-post"
+        return "add-post"
     }
-    
-    @PostMapping("edit")
-    fun editPost(@RequestParam("id") postFromDB: Post,
-                 updatedPost: Post
-    ): String {
-        postService.compareAndMerge(postFromDB, updatedPost)
-        postService.save(postFromDB)
-        
-        return "redirect:/post/${postFromDB.id}"
-    }
-    
     
     @ModelAttribute
     fun addAttributes(model: Model) {

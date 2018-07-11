@@ -18,8 +18,13 @@
 
             <@i.input_new_category/>
 
-            <form class="needs-validation" action="/post/new/add" novalidate method="post">
+            <form action="/post/new/add" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <#if post??>
+                    <#if post.id??>
+                        <input type="hidden" name="id" value="${post.id}""/>
+                    </#if>
+                </#if>
 
                 <@i.select_category/>
                 <@i.input_title/>

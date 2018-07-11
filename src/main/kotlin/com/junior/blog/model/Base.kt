@@ -7,7 +7,7 @@ import javax.persistence.*
 abstract class Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)

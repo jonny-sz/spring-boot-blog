@@ -10,5 +10,5 @@ interface PostService {
     fun getByUser(userId: Long): List<Post>
     fun deleteSelected(posts: Iterable<Post>)
     fun delete(post: Post)
-    fun compareAndMerge(postFromDB: Post, updatedPost: Post)
+    fun editPost(id: Long, post: Post): Post
 }
