@@ -15,7 +15,7 @@ class User(
         private var username: String = "",
         
         @field: NotBlank(message = "{NotBlank.user.password}")
-        @field: Size(min = 3, max = 20, message = "{Size.user.password}")
+        @field: Size(min = 3, message = "{Size.user.password}")
         private var password: String = "",
         
         @field: NotBlank(message = "{NotBlank.user.email}")

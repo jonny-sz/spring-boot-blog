@@ -1,9 +1,9 @@
 DO $$
 DECLARE UserId bigint;
 BEGIN
-  INSERT INTO "usr" ("usr_name", "usr_password", "usr_email") VALUES
-    ('admin', '123', 'a@a.com')
-  RETURNING "usr_id"
+  INSERT INTO "usr" ("username", "password", "email", "created", "updated") VALUES
+    ('admin', '123', 'a@a.com', current_timestamp, current_timestamp)
+  RETURNING "id"
     INTO UserId;
 
   INSERT INTO "user_role" ("usr_id", "roles") VALUES

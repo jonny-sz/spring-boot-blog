@@ -7,7 +7,7 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "post")
-class Post(
+data class Post(
         @field: NotBlank(message = "{NotBlank.post.title}")
         @field: Size(max = 255, message = "{Size.post.title}")
         var title: String? = null,
@@ -18,14 +18,14 @@ class Post(
 
         @Column(columnDefinition = "TEXT")
         @field: NotBlank(message = "{NotBlank.post.text}")
-        var text: String? = null
-) : Base() {
+        var text: String? = null,
+
         @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "category_id")
         @field: NotNull(message = "{NotNull.post.category}")
-        var category: Category? = null
-        
+        var category: Category? = null,
+
         @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "usr_id")
         var user: User? = null
-}
+) : Base()

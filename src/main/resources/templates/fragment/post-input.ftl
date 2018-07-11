@@ -27,14 +27,21 @@
 
 <#macro select_category>
     <div class="form-group">
-        <select class="custom-select ${(postCategoryError??)?string('is-invalid', '')}" name="category" <#--required-->>
+        <select class="custom-select ${(postCategoryError??)?string('is-invalid', '')}" name="category">
             <option value="">Категория</option>
-                    <#list categories as category>
-                        <option value="${category.id}">${category.title}</option>
-                    </#list>
+            <#if post??>
+                <#if post.category??>
+                    <option value="${post.category.id}" selected>${post.category.title}</option>
+                </#if>
+            </#if>
+            <#list categories as category>
+                <option value="${category.id}">${category.title}</option>
+            </#list>
         </select>
         <#if postCategoryError??>
-            <div class="invalid-feedback text-center">${postCategoryError}</div>
+            <#list postCategoryError as err>
+                <div class="invalid-feedback text-center">${err}</div>
+            </#list>
         </#if>
     </div>
 </#macro>
@@ -49,7 +56,9 @@
                placeholder="Заголовок"
                value="<#if post??>${post.title}</#if>"/>
         <#if postTitleError??>
-            <div class="invalid-feedback text-center">${postTitleError}</div>
+            <#list postTitleError as err>
+                <div class="invalid-feedback text-center">${err}</div>
+            </#list>
         </#if>
     </div>
 </#macro>
@@ -64,7 +73,9 @@
                placeholder="Описание"
                value="<#if post??>${post.description}</#if>"/>
         <#if postDescriptionError??>
-            <div class="invalid-feedback text-center">${postDescriptionError}</div>
+            <#list postDescriptionError as err>
+                <div class="invalid-feedback text-center">${err}</div>
+            </#list>
         </#if>
     </div>
 </#macro>
@@ -78,7 +89,9 @@
             <#if post??>${post.text}</#if>
         </textarea>
         <#if postTextError??>
-            <div class="invalid-feedback text-center">${postTextError}</div>
+            <#list postTextError as err>
+                <div class="invalid-feedback text-center">${err}</div>
+            </#list>
         </#if>
     </div>
 </#macro>
