@@ -1,10 +1,11 @@
 package com.junior.blog.model
 
+import java.io.Serializable
 import java.util.*
 import javax.persistence.*
 
 @MappedSuperclass
-abstract class Base {
+abstract class Base : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
