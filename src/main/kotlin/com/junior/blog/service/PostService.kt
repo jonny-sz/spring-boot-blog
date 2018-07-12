@@ -1,14 +1,14 @@
 package com.junior.blog.service
 
 import com.junior.blog.model.Post
-import com.junior.blog.model.User
+import java.util.*
 
 interface PostService {
     fun getAll(): List<Post>
     fun save(post: Post): Post
-    fun getById(id: Long): Post
+    fun getById(id: Long): Optional<Post>
     fun getByUser(userId: Long): List<Post>
     fun deleteSelected(posts: Iterable<Post>)
-    fun delete(post: Post)
+    fun delete(id: Long)
     fun editPost(id: Long, post: Post): Post
 }

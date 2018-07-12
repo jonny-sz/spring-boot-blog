@@ -7,7 +7,7 @@ where p.id isnull
 """
 
 const val selectAllPostsByUser = """
-select * from post
+select * from "post"
 where usr_id = ?
 order by created desc
 """

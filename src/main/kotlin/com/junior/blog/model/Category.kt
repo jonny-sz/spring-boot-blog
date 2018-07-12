@@ -1,5 +1,6 @@
 package com.junior.blog.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
@@ -12,6 +13,7 @@ data class Category(
         var title: String? = null
 ) : Base() {
         
+        @JsonIgnore
         @OneToMany(mappedBy = "category", cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER)
         var posts: MutableSet<Post> = mutableSetOf()
 }

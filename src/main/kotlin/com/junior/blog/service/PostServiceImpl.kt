@@ -1,9 +1,9 @@
 package com.junior.blog.service
 
 import com.junior.blog.model.Post
-import com.junior.blog.model.User
 import com.junior.blog.repository.PostRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class PostServiceImpl(private val postRepo: PostRepository) : PostService {
@@ -12,7 +12,7 @@ class PostServiceImpl(private val postRepo: PostRepository) : PostService {
 
     override fun save(post: Post): Post = postRepo.save(post)
 
-    override fun getById(id: Long): Post = postRepo.getOne(id)
+    override fun getById(id: Long): Optional<Post> = postRepo.findById(id)
     
     override fun getByUser(userId: Long): List<Post> = postRepo.findALLByUser(userId)
     
@@ -20,12 +20,12 @@ class PostServiceImpl(private val postRepo: PostRepository) : PostService {
         postRepo.deleteInBatch(posts)
     }
 
-    override fun delete(post: Post) {
-        postRepo.delete(post)
+    override fun delete(id: Long) {
+        postRepo.deleteById(id)
     }
     
     override fun editPost(id: Long, post: Post): Post {
-        val postFromDB = getById(id)
+        val postFromDB = getById(id).get()
         
         postFromDB.title = post.title
         postFromDB.description = post.description
