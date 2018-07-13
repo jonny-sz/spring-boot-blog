@@ -7,7 +7,7 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "category")
-data class Category(
+class Category(
         @field: NotBlank(message = "{NotBlank.category.title}")
         @field: Size(max = 25, message = "{Size.category.title}")
         var title: String? = null
