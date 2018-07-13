@@ -3,31 +3,28 @@
 
 <#macro input_new_category>
 
-    <form class="text-center needs-validation" novalidate action="/category" method="post">
+    <form id="newCategory" class="text-center" method="post">
 
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-        <div class="input-group mb-3">
+        <div id="cInput" class="input-group mb-3">
             <input type="text" class="form-control"
                    placeholder="Новая категория"
                    aria-label="Recipient's username"
                    aria-describedby="basic-addon2"
-                   id="validationCustom04"
-                   name="title"
-                   required>
+                   id="cTitle"
+                   name="title">
 
             <div class="input-group-append">
                 <button class="btn btn-secondary" type="submit">Создать категорию</button>
             </div>
-
-            <div class="invalid-feedback text-center">Заполните категорию</div>
         </div>
     </form>
 </#macro>
 
 <#macro select_category>
     <div class="form-group">
-        <select class="custom-select ${(postCategoryError??)?string('is-invalid', '')}" name="category">
+        <select id="categorySelect" class="custom-select ${(postCategoryError??)?string('is-invalid', '')}" name="category">
             <option value="">Категория</option>
             <#if post??>
                 <#if post.category??>

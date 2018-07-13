@@ -1,6 +1,7 @@
 package com.junior.blog.service
 
 import com.junior.blog.model.Post
+import com.junior.blog.model.User
 import com.junior.blog.repository.PostRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -33,5 +34,14 @@ class PostServiceImpl(private val postRepo: PostRepository) : PostService {
         postFromDB.category = post.category
         
         return postFromDB
+    }
+    
+    override fun createOrUpdate(id: Long?, post: Post, user: User) {
+        if (id == null) {
+            post.user = user
+            save(post)
+        } else {
+            save(editPost(id, post))
+        }
     }
 }

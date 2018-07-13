@@ -41,7 +41,7 @@ class UserServiceImpl(
     
     override fun getByName(username: String) = userRepo.findByUsername(username)
     
-    override fun getAll() = userRepo.findAll(Sort(Sort.Direction.ASC, "username"))
+    override fun getAll(): List<User> = userRepo.findAll(Sort(Sort.Direction.ASC, "username"))
     
     override fun delete(user: User) {
         userRepo.delete(user)

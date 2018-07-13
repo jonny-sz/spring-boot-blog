@@ -41,5 +41,6 @@
 
         <#include "fragment/bootstrap-js.ftl">
         <#include "fragment/froala-js.ftl">
+        <script src="/js/ajaxPostCategory.js"></script>
     </body>
 </@common.base>

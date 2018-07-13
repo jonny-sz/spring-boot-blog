@@ -1,6 +1,6 @@
 package com.junior.blog.controller
 
-import com.junior.blog.controller.util.isErrors
+import com.junior.blog.controller.util.getErrorsMap
 import com.junior.blog.model.Post
 import com.junior.blog.model.User
 import com.junior.blog.service.CategoryServiceImpl
@@ -30,16 +30,14 @@ class PostController(
                    bindRes: BindingResult,
                    model: Model
     ): String {
-        if (isErrors(bindRes, model, post)) return "add-post"
-        
-        when (id) {
-            null -> {
-                post.user = user
-                postService.save(post)
-            }
-            else -> postService.save(postService.editPost(id, post))
+        if (bindRes.hasErrors()) {
+            model.mergeAttributes(getErrorsMap(bindRes, "post"))
+            model.addAttribute("post", post)
+            
+            return "add-post"
         }
         
+        postService.createOrUpdate(id, post, user)
         categoryService.deleteAll(categoryService.getAllEmpty())
         
         return "redirect:/post/${post.id}"

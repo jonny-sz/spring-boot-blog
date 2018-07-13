@@ -30,7 +30,8 @@ class WebSecurityConfig(
                             "/post/*",
                             "/category/**",
                             "/registration",
-                            "/activate/*"
+                            "/activate/*",
+                            "/api/**"
                     ).permitAll()
                     .anyRequest().authenticated()
                 .and()

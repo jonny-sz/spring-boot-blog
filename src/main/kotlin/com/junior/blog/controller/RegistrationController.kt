@@ -1,6 +1,6 @@
 package com.junior.blog.controller
 
-import com.junior.blog.controller.util.isErrors
+import com.junior.blog.controller.util.getErrorsMap
 import com.junior.blog.model.User
 import com.junior.blog.service.UserServiceImpl
 import org.springframework.stereotype.Controller
@@ -20,7 +20,9 @@ class RegistrationController(
 
     @PostMapping("/registration")
     fun registration(@Valid user: User, bindRes: BindingResult, model: Model): String {
-        if (isErrors(bindRes, model, user)) {
+        if (bindRes.hasErrors()) {
+            model.mergeAttributes(getErrorsMap(bindRes, "user"))
+            model.addAttribute("user", user)
             return "registration"
         }
         if (userService.addUser(user, model)) {
