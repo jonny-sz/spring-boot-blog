@@ -11,7 +11,7 @@ abstract class Base : Serializable {
     var id: Long? = null
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     var created: Date? = null
     
     @Temporal(TemporalType.TIMESTAMP)

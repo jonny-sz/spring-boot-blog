@@ -1,8 +1,12 @@
 package com.junior.blog.service
 
 import com.junior.blog.model.Category
+import com.junior.blog.model.Post
 import com.junior.blog.repository.CategoryRepository
+
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
 import java.util.*
 
 @Service
@@ -20,5 +24,12 @@ class CategoryServiceImpl(private val categoryRepo: CategoryRepository) : Catego
 
     override fun deleteAll(categories: List<Category>) {
         categoryRepo.deleteAll(categories)
+    }
+    
+    @Transactional
+    override fun getSortedPosts(id: Long): List<Post> {
+        val category = getById(id).get()
+        
+        return category.posts.sortedByDescending { it.created }
     }
 }

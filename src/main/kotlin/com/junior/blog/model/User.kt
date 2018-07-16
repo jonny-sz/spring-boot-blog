@@ -25,7 +25,7 @@ class User(
     
     var activationCode: String? = null
     
-    @OneToMany(mappedBy = "user", cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
     var posts: MutableSet<Post> = mutableSetOf()
     
     @ElementCollection(targetClass = Role::class, fetch = FetchType.EAGER)

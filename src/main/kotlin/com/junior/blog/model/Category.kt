@@ -14,6 +14,6 @@ class Category(
 ) : Base() {
         
         @JsonIgnore
-        @OneToMany(mappedBy = "category", cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER)
+        @OneToMany(mappedBy = "category", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
         var posts: MutableSet<Post> = mutableSetOf()
 }

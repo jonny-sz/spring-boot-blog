@@ -3,6 +3,7 @@ package com.junior.blog.controller
 import com.junior.blog.model.Category
 import com.junior.blog.service.CategoryServiceImpl
 import org.springframework.stereotype.Controller
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
@@ -16,11 +17,12 @@ class CategoryController(private val categoryService: CategoryServiceImpl) {
 
         return "redirect:/post/new/form"
     }
-
-    @GetMapping("{category}")
-    fun postsFromCategory(@PathVariable category: Category, model: Model) : String {
-        val posts = category.posts.sortedByDescending { post -> post.created }
-
+    
+    @Transactional
+    @GetMapping("{id}")
+    fun postsFromCategory(@PathVariable id: Long, model: Model) : String {
+        val posts = categoryService.getSortedPosts(id)
+        
         model.addAttribute("posts", posts)
         model.addAttribute("categories", categoryService.getAll())
 
