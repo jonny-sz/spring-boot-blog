@@ -21,7 +21,7 @@ class PostController(
         private val categoryService: CategoryServiceImpl
 ) {
     @GetMapping("new/form")
-    fun postForm(model: Model) = "add-post"
+    fun postForm() = "add-post"
     
     @PostMapping("new/add")
     fun createPost(@AuthenticationPrincipal user: User,
@@ -68,7 +68,7 @@ class PostController(
     
     @PostMapping("edit-form")
     fun editForm(@RequestParam postId: Long, model: Model): String {
-        model.addAttribute("post", postService.getById(postId))
+        model.addAttribute("post", postService.getById(postId).get())
         
         return "add-post"
     }

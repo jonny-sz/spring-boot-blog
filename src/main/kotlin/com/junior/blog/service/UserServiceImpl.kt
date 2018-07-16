@@ -2,6 +2,7 @@ package com.junior.blog.service
 
 import com.junior.blog.model.Role
 import com.junior.blog.model.User
+import com.junior.blog.model.wrappers.EmailWrap
 import com.junior.blog.repository.UserRepository
 import com.junior.blog.service.util.activationMsg
 import com.junior.blog.service.util.userAlreadyExists
@@ -15,6 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
+import org.springframework.validation.FieldError
+import org.springframework.validation.Validator
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 import java.util.*
@@ -23,7 +27,8 @@ import java.util.*
 class UserServiceImpl(
         private val userRepo: UserRepository,
         private val passwordEncoder: PasswordEncoder,
-        private val mailSender: MailSender
+        private val mailSender: MailSender,
+        private val validator: Validator
 ) : UserService, UserDetailsService {
     
     @Throws(Exception::class)
@@ -93,37 +98,17 @@ class UserServiceImpl(
         save(user)
     }
     
-    override fun updatePassword(user: User,
-                                newPassword: String,
-                                oldPassword: String,
-                                redirectAttr: RedirectAttributes) {
-        val arePasswordsEqual = passwordEncoder.matches(oldPassword, user.password)
-        val isPasswordChanged = newPassword.isNotEmpty() && arePasswordsEqual
-        val isIncorrectOldPassword = newPassword.isNotEmpty() && !arePasswordsEqual
-        
-        if (isPasswordChanged) {
-            user.password = passwordEncoder.encode(newPassword)
-            save(user)
-            redirectAttr.addFlashAttribute("passMessage", "Пароль изменён")
-        }
-        
-        if (isIncorrectOldPassword) {
-            redirectAttr.addFlashAttribute("passMessage", "Не правильный старый пароль!")
-        }
+    override fun updatePassword(user: User, newPassword: String, redirect: RedirectAttributes) {
+        user.password = passwordEncoder.encode(newPassword)
+        save(user)
+        redirect.addFlashAttribute("passMessage", "Пароль изменён")
     }
     
-    override fun updateEmail(user: User, newEmail: String, redirectAttr: RedirectAttributes) {
-        val isEmailChanged = newEmail.isNotEmpty() && newEmail != user.email
-        
-        if (isEmailChanged) {
-            user.email = newEmail
-            user.activationCode = UUID.randomUUID().toString()
-            
-            save(user)
-            sendCodeByEmail(user)
-            SecurityContextHolder.clearContext()
-            redirectAttr.addFlashAttribute("emailMessage", "Email изменён")
-        }
+    override fun updateEmail(user: User, newEmail: EmailWrap) {
+        user.email = newEmail.email
+        user.activationCode = UUID.randomUUID().toString()
+        save(user)
+        sendCodeByEmail(user)
     }
     
     override fun activateUser(code: String): Boolean {

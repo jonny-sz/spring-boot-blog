@@ -24,7 +24,8 @@
 
 <#macro select_category>
     <div class="form-group">
-        <select id="categorySelect" class="custom-select ${(postCategoryError??)?string('is-invalid', '')}" name="category">
+        <select id="categorySelect" class="custom-select ${(postCategoryError??)?string('is-invalid', '')}"
+                name="category">
             <option value="">Категория</option>
             <#if post??>
                 <#if post.category??>

@@ -1,16 +1,25 @@
 package com.junior.blog.controller
 
+import com.junior.blog.controller.util.getErrorsMap
 import com.junior.blog.model.Role
 import com.junior.blog.model.User
+import com.junior.blog.model.wrappers.EmailWrap
+import com.junior.blog.model.wrappers.PassWrap
 import com.junior.blog.service.CategoryServiceImpl
 import com.junior.blog.service.PostServiceImpl
 import com.junior.blog.service.UserServiceImpl
+
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
+import org.springframework.validation.FieldError
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+
+import javax.validation.Valid
 
 @Controller
 @RequestMapping("/user")
@@ -71,22 +80,39 @@ class UserController(
     
     @PostMapping("profile/password")
     fun updatePassword(@AuthenticationPrincipal user: User,
-                       @RequestParam oldPassword: String,
-                       @RequestParam newPassword: String,
-                       redirectAttr: RedirectAttributes
+                       @Valid passwords: PassWrap,
+                       bindRes: BindingResult,
+                       redirect: RedirectAttributes
     ): String {
-        userService.updatePassword(user, newPassword, oldPassword, redirectAttr)
+        passwords.checkOld(user, bindRes)
+        
+        if ( bindRes.hasErrors() ) {
+            getErrorsMap(bindRes, "passWrap")
+                    .forEach { redirect.addFlashAttribute(it.key, it.value) }
+        } else {
+            userService.updatePassword(user, passwords.newPassword, redirect)
+        }
         
         return "redirect:/user/profile"
     }
     
     @PostMapping("profile/email")
     fun updateEmail(@AuthenticationPrincipal user: User,
-                    @RequestParam newEmail: String,
-                    redirectAttr: RedirectAttributes
+                    @Valid newEmail: EmailWrap,
+                    bindRes: BindingResult,
+                    redirect: RedirectAttributes
     ): String {
-        userService.updateEmail(user, newEmail, redirectAttr)
+        if ( newEmail.email == user.email ) {
+            bindRes.addError(FieldError("emailWrap", "email", "Этот email уже активирован"))
+        }
+        if ( !bindRes.hasErrors() ) {
+            userService.updateEmail(user, newEmail)
+            SecurityContextHolder.clearContext()
+        }
         
-        return "redirect:/login"
+        getErrorsMap(bindRes, "emailWrap")
+                .forEach { redirect.addFlashAttribute(it.key, it.value) }
+        
+        return "redirect:/user/profile"
     }
 }

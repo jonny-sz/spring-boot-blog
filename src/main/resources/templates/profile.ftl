@@ -23,25 +23,35 @@
                     <div class="form-row mt-3">
                         <div class="col-md-3"></div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control"
+                            <input type="text"
+                                   class="form-control ${(passWrapOldPasswordError??)?string('is-invalid', '')}"
                                    autocomplete="off"
                                    name="oldPassword"
-                                   placeholder="Старый пароль"
-                                   required>
+                                   placeholder="Старый пароль">
+                            <#if passWrapOldPasswordError??>
+                                <#list passWrapOldPasswordError as err>
+                                    <div class="invalid-feedback text-center">${err}</div>
+                                </#list>
+                            </#if>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control"
+                            <input type="text"
+                                   class="form-control ${(passWrapNewPasswordError??)?string('is-invalid', '')}"
                                    autocomplete="off"
                                    name="newPassword"
-                                   placeholder="Новый пароль"
-                                   required>
+                                   placeholder="Новый пароль">
+                            <#if passWrapNewPasswordError??>
+                                <#list passWrapNewPasswordError as err>
+                                    <div class="invalid-feedback text-center">${err}</div>
+                                </#list>
+                            </#if>
                         </div>
                     </div>
                     <div class="text-center mt-3">
                         <button type="submit" class="btn btn-secondary">Сохранить</button>
                     </div>
                 </form>
-                <div class="text-center mt-3 h4">
+                <div class="text-center mt-3 text-success h5">
                     <#if passMessage??>
                         ${passMessage}
                     </#if>
@@ -56,23 +66,29 @@
                     </div>
                     <div class="form-row mt-3">
                         <div class="col-md-3"></div>
+                        <div class="col-md-6 text-center">
+                            Текущий: <span class="font-weight-bold">${oldEmail}</span>
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-md-3"></div>
                         <div class="col-md-6">
-                            <input type="email" class="form-control"
+                            <input type="text"
+                                   class="form-control ${(emailWrapEmailError??)?string('is-invalid', '')}"
                                    autocomplete="off"
-                                   name="newEmail"
-                                   value="${oldEmail}"
-                                   required>
+                                   name="email"
+                                   placeholder="Новый email">
+                            <#if emailWrapEmailError??>
+                                <#list emailWrapEmailError as err>
+                                    <div class="invalid-feedback text-center">${err}</div>
+                                </#list>
+                            </#if>
                         </div>
                     </div>
                     <div class="text-center mt-3">
                         <button type="submit" class="btn btn-secondary">Сохранить</button>
                     </div>
                 </form>
-                <div class="text-center mt-3 h4">
-                    <#if emailMessage??>
-                        ${emailMessage}
-                    </#if>
-                </div>
             </div>
         </div>
 
