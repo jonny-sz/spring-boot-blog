@@ -5,6 +5,7 @@ import com.junior.blog.model.Post
 import com.junior.blog.model.User
 import com.junior.blog.service.CategoryServiceImpl
 import com.junior.blog.service.PostServiceImpl
+import com.junior.blog.service.UserServiceImpl
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
@@ -18,7 +19,8 @@ import javax.validation.Valid
 @RequestMapping("/post")
 class PostController(
         private val postService: PostServiceImpl,
-        private val categoryService: CategoryServiceImpl
+        private val categoryService: CategoryServiceImpl,
+        private val userService: UserServiceImpl
 ) {
     @GetMapping("new/form")
     fun postForm() = "add-post"
@@ -53,7 +55,10 @@ class PostController(
     @GetMapping("all-my")
     @PreAuthorize("hasAuthority('USER')")
     fun getUserPosts(@AuthenticationPrincipal authUser: User, model: Model): String {
-        model.addAttribute("posts", postService.getByUser(authUser.id!!))
+        val userFromDb = userService.getById(authUser.id!!).get()
+        val posts = userFromDb.posts.sortedBy { it.title }
+        
+        model.addAttribute("posts", posts)
         
         return "my-posts"
     }

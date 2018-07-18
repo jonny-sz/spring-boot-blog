@@ -5,9 +5,11 @@ import com.junior.blog.model.wrappers.EmailWrap
 
 import org.springframework.ui.Model
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import java.util.*
 
 interface UserService {
     fun save(user: User) : User
+    fun getById(id: Long) : Optional<User>
     fun getByName(username: String) : User?
     fun getAll() : List<User>
     fun delete(user: User)

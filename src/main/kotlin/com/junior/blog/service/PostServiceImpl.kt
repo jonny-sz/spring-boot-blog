@@ -15,8 +15,6 @@ class PostServiceImpl(private val postRepo: PostRepository) : PostService {
 
     override fun getById(id: Long): Optional<Post> = postRepo.findById(id)
     
-    override fun getByUser(userId: Long): List<Post> = postRepo.findALLByUser(userId)
-    
     override fun deleteSelected(posts: Iterable<Post>) {
         postRepo.deleteInBatch(posts)
     }

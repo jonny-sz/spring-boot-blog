@@ -84,13 +84,15 @@ class UserController(
                        bindRes: BindingResult,
                        redirect: RedirectAttributes
     ): String {
-        passwords.checkOld(user, bindRes)
+        val userFromDb = userService.getById(user.id!!).get()
+        
+        passwords.checkOld(userFromDb, bindRes)
         
         if ( bindRes.hasErrors() ) {
             getErrorsMap(bindRes, "passWrap")
                     .forEach { redirect.addFlashAttribute(it.key, it.value) }
         } else {
-            userService.updatePassword(user, passwords.newPassword, redirect)
+            userService.updatePassword(userFromDb, passwords.newPassword, redirect)
         }
         
         return "redirect:/user/profile"

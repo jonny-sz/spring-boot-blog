@@ -7,7 +7,6 @@ import com.junior.blog.repository.UserRepository
 import com.junior.blog.service.util.activationMsg
 import com.junior.blog.service.util.userAlreadyExists
 import com.junior.blog.service.util.userNotFound
-
 import org.springframework.data.domain.Sort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
@@ -16,19 +15,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.ui.Model
-import org.springframework.validation.BindingResult
-import org.springframework.validation.FieldError
-import org.springframework.validation.Validator
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
-
 import java.util.*
 
 @Service
 class UserServiceImpl(
         private val userRepo: UserRepository,
         private val passwordEncoder: PasswordEncoder,
-        private val mailSender: MailSender,
-        private val validator: Validator
+        private val mailSender: MailSender
 ) : UserService, UserDetailsService {
     
     @Throws(Exception::class)
@@ -43,6 +37,8 @@ class UserServiceImpl(
     }
     
     override fun save(user: User) = userRepo.save(user)
+    
+    override fun getById(id: Long): Optional<User> = userRepo.findById(id)
     
     override fun getByName(username: String) = userRepo.findByUsername(username)
     
