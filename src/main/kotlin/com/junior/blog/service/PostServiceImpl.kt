@@ -15,12 +15,12 @@ class PostServiceImpl(private val postRepo: PostRepository) : PostService {
 
     override fun getById(id: Long): Optional<Post> = postRepo.findById(id)
     
-    override fun deleteSelected(posts: Iterable<Post>) {
-        postRepo.deleteInBatch(posts)
+    override fun deleteAll(posts: Iterable<Post>) {
+        postRepo.deleteAll(posts)
     }
 
-    override fun delete(id: Long) {
-        postRepo.deleteById(id)
+    override fun delete(post: Post) {
+        postRepo.delete(post)
     }
     
     override fun editPost(id: Long, post: Post): Post {

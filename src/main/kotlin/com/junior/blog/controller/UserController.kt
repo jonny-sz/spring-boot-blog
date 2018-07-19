@@ -62,7 +62,7 @@ class UserController(
     @GetMapping("delete/{user}")
     @PreAuthorize("hasAuthority('ADMIN')")
     fun deleteUser(@PathVariable user: User): String {
-        postService.deleteSelected(user.posts)
+        postService.deleteAll(user.posts)
         userService.delete(user)
         
         return "redirect:/user"

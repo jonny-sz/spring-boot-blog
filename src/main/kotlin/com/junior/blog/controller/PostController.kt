@@ -64,9 +64,8 @@ class PostController(
     }
     
     @PostMapping("delete")
-    fun delPost(@RequestParam postId: Long): String {
-        val post = postService.getById(postId).get()
-        postService.deleteSelected(listOf(post))
+    fun delPost(@RequestParam("postId") post: Post): String {
+        postService.delete(post)
         
         return "redirect:/post/all-my"
     }

@@ -8,8 +8,8 @@ interface PostService {
     fun getAll(): List<Post>
     fun save(post: Post): Post
     fun getById(id: Long): Optional<Post>
-    fun deleteSelected(posts: Iterable<Post>)
-    fun delete(id: Long)
+    fun deleteAll(posts: Iterable<Post>)
+    fun delete(post: Post)
     fun editPost(id: Long, post: Post): Post
     fun createOrUpdate(id: Long?, post: Post, user: User)
 }
