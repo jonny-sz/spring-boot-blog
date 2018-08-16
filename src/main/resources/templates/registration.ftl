@@ -102,6 +102,10 @@
                     ${message}
                 </#if>
             </div>
+
+            <div class="text-center mt-5 h5 bg-info text-white p-3">
+                После регистрации активируйте свой аккаунт через письмо, высланное Вам на E-mail.
+            </div>
         </div>
 
         <#include "fragment/bootstrap-js.ftl">
