@@ -7,6 +7,7 @@ import com.junior.blog.repository.UserRepository
 import com.junior.blog.service.util.activationMsg
 import com.junior.blog.service.util.userAlreadyExists
 import com.junior.blog.service.util.userNotFound
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.Sort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
@@ -24,6 +25,9 @@ class UserServiceImpl(
         private val passwordEncoder: PasswordEncoder,
         private val mailSender: MailSender
 ) : UserService, UserDetailsService {
+    
+    @Value("\${hostname}")
+    val hostname: String? = null
     
     @Throws(Exception::class)
     override fun loadUserByUsername(username: String?): UserDetails {
@@ -70,7 +74,11 @@ class UserServiceImpl(
     private fun sendCodeByEmail(user: User) {
         with(mailSender) {
             val mailSubject = "Activation code"
-            val msg = activationMsg.format(user.username, user.activationCode)
+            val msg = activationMsg.format(
+                    user.username,
+                    hostname,
+                    user.activationCode
+            )
         
             send(user.email, mailSubject, msg)
         }
